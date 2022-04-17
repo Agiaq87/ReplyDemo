@@ -74,5 +74,13 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideFattoService(): IlFattoQuotidianoRssService = Retrofit.Builder()
+        .baseUrl("https://www.ilfattoquotidiano.it/")
+        .addConverterFactory(SimpleXmlConverterFactory.create())
+        .build()
+        .create(IlFattoQuotidianoRssService::class.java)
+
+    @Provides
+    @Singleton
     fun provideFeedContainer(): FeedContainer = FeedContainer()
 }

@@ -14,6 +14,7 @@ class FeedContainer {
     init {
         publisher["AGI"] = mutableMapOf()
         publisher["Ansa"] = mutableMapOf()
+        publisher["FattoQuotidiano"] = mutableMapOf()
         publisher["Miur"] = mutableMapOf()
         publisher["Repubblica"] = mutableMapOf()
         publisher["TomsHW"] = mutableMapOf()

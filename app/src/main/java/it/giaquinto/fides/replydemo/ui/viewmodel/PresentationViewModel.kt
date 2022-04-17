@@ -21,6 +21,7 @@ class PresentationViewModel @Inject constructor(
     private val repubblicaRssService: RepubblicaRssService,
     private val tomsHwRssService: TomsHwRssService,
     private val agiRssService: AgiRssService,
+    private val fattoQuotidianoRssService: IlFattoQuotidianoRssService,
     private val feedContainer: FeedContainer
 ) : ViewModel() {
     val progress = MutableLiveData<Int>()
@@ -671,6 +672,14 @@ class PresentationViewModel @Inject constructor(
                 agiRssService.veneto(),
                 "AGI Veneto",
                 feedContainer.publisher["AGI"]!!
+            )
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            elaborate(
+                fattoQuotidianoRssService.getHome(),
+                "Fatto Quotidiano",
+                feedContainer.publisher["FattoQuotidiano"]!!
             )
         }
     }
