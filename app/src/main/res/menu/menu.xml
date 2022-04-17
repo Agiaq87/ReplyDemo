@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/presentationFragment"
+        android:title="Presentation"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/publisherFragment"
+        android:icon="@drawable/ic_baseline_rss_feed_24"
+        android:title="@string/publisher_menu"
+        android:visible="true" />
+
+    <item
+        android:id="@+id/newsFragment"
+        android:title="@string/news_menu"
+        android:visible="false" />
+</menu>

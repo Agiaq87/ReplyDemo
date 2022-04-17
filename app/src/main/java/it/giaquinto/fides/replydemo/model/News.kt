@@ -14,5 +14,4 @@ data class News(
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
-
 }

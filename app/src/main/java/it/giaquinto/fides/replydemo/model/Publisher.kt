@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import it.giaquinto.fides.replydemo.utils.minus
-import java.lang.NumberFormatException
 
 @Entity(tableName = "publisher_table")
 data class Publisher(

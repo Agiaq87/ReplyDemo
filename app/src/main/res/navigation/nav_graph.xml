@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/presentationFragment">
+
+    <fragment
+        android:id="@+id/presentationFragment"
+        android:name="it.giaquinto.fides.replydemo.ui.fragments.PresentationFragment"
+        android:label="PresentationFragment">
+        <action
+            android:id="@+id/action_presentationFragment_to_publisherFragment"
+            app:destination="@id/publisherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/publisherFragment"
+        android:name="it.giaquinto.fides.replydemo.ui.fragments.PublisherFragment"
+        android:label="PublisherFragment">
+        <argument
+            android:name="publisher"
+            android:defaultValue=""
+            app:argType="string" />
+        <action
+            android:id="@+id/action_publisherFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="it.giaquinto.fides.replydemo.ui.fragments.NewsFragment"
+        android:label="NewsFragment" />
+</navigation>

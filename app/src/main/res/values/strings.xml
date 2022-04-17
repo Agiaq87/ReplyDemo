@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ReplyDemo</string>
     <string name="publisher_title">Publisher disponibili</string>
+    <string name="publisher_menu">Publisher</string>
+    <string name="news_menu">News</string>
+    <string name="publisher_search">Cerca publisher</string>
 </resources>
