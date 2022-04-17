@@ -23,7 +23,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/publisher_search"
+        android:hint="@string/publisher_search"
         app:layout_constraintEnd_toStartOf="@+id/reOrder"
         app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toEndOf="@+id/imageView5"

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -46,16 +47,33 @@ class PublisherFragment : Fragment() {
 
         binding.searchText.addTextChangedListener(
             object : TextWatcher {
+                private var currentList: List<String>? = null
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     Log.e("TextWatcher", "before")
                 }
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     Log.e("TextWatcher", "onChange")
+                    p0?.let {
+                        currentList = if (it.length >= 3) {
+                            viewModel.searchList(it.toString())
+                        } else {
+                            viewModel.originalList()
+                        }
+                    }
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
                     Log.e("TextWatcher", "after")
+                    currentList?.let {
+                        if (it.isEmpty()) {
+                            Toast.makeText(
+                                this@PublisherFragment.requireContext(),
+                                "Nessun risultato trovato",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 }
 
             }

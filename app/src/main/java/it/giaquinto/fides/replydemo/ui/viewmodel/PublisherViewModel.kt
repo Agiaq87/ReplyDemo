@@ -27,4 +27,18 @@ class PublisherViewModel @Inject constructor(
             reOrderValue = true
         }
 
+    fun searchList(value: String): List<String> {
+        val list = mutableListOf<String>()
+
+        publisherList.value?.forEach {
+            if (it.contains(value, true)) {
+                list.add(it)
+            }
+        }
+
+        return list.toList()
+    }
+
+    fun originalList(): List<String> = publisherList.value!!
+
 }
