@@ -21,11 +21,19 @@
             android:defaultValue=""
             app:argType="string" />
         <action
-            android:id="@+id/action_publisherFragment_to_newsFragment"
-            app:destination="@id/newsFragment" />
+            android:id="@+id/action_publisherFragment_to_argumentsFragment"
+            app:destination="@id/argumentsFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
         android:name="it.giaquinto.fides.replydemo.ui.fragments.NewsFragment"
         android:label="NewsFragment" />
+    <fragment
+        android:id="@+id/argumentsFragment"
+        android:name="it.giaquinto.fides.replydemo.ui.fragments.ArgumentsFragment"
+        android:label="ArgumentsFragment">
+        <action
+            android:id="@+id/action_argumentsFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
 </navigation>

@@ -32,6 +32,8 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         }
     }
 
+    fun setList(list: List<FeedItem>) = differ.submitList(list)
+
     private val diffCallBack = object : DiffUtil.ItemCallback<FeedItem>() {
         override fun areItemsTheSame(oldItem: FeedItem, newItem: FeedItem): Boolean =
             oldItem == newItem

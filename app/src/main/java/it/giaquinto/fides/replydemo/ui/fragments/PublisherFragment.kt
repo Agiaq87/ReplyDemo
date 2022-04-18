@@ -34,7 +34,7 @@ class PublisherFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPublisherBinding.inflate(layoutInflater)
 
         CoroutineScope(Dispatchers.Main).launch {
@@ -72,6 +72,8 @@ class PublisherFragment : Fragment() {
                                 "Nessun risultato trovato",
                                 Toast.LENGTH_SHORT
                             ).show()
+                        } else {
+                            publisherAdapter.setList(it)
                         }
                     }
                 }
