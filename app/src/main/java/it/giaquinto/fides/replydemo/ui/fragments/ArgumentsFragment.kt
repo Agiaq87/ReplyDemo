@@ -11,6 +11,12 @@ import it.giaquinto.fides.replydemo.ui.viewmodel.ArgumentsViewModel
 class ArgumentsFragment : Fragment() {
     private val viewModel: ArgumentsViewModel by viewModels()
     private lateinit var binding: FragmentPublisherBinding
-    private val argumentsAdapter by lazy { ArgumentsAdapter() }
+    private val argumentsAdapter by lazy {
+        ArgumentsAdapter(
+            {
+
+            }
+        )
+    }
 
 }
