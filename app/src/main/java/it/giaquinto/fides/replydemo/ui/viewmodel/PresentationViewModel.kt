@@ -10,7 +10,8 @@ import it.giaquinto.fides.replydemo.model.feedrss.FeedItem
 import it.giaquinto.fides.replydemo.request.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancelChildren
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -24,11 +25,13 @@ class PresentationViewModel @Inject constructor(
     private val fattoQuotidianoRssService: IlFattoQuotidianoRssService,
     private val feedContainer: FeedContainer
 ) : ViewModel() {
+    // Interni
+    private val coroutine = CoroutineScope(Dispatchers.IO)
+
+    // Esposti
     val progress = MutableLiveData<Int>()
     val text = MutableLiveData<String>()
 
-    var counter = 0
-    var sempaphoreForSwitch = true
     lateinit var switchToNext: () -> Unit
 
     init {
@@ -37,653 +40,667 @@ class PresentationViewModel @Inject constructor(
     }
 
     suspend fun fetch() {
-        CoroutineScope(Dispatchers.IO).launch {
+        coroutine.async {
             elaborate(
                 ansaRssService.getHome(),
                 "Ansa Home",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 ansaRssService.getCinema(),
                 "Ansa Cinema",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 ansaRssService.getPolitica(),
                 "Ansa Politica",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 ansaRssService.getWorld(),
                 "Ansa Mondo",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 ansaRssService.getEconomy(),
                 "Ansa Economy",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 ansaRssService.getSoccer(),
                 "Ansa Calcio",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 ansaRssService.getCulture(),
                 "Ansa Culture",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 ansaRssService.getTech(),
                 "Ansa Tech",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 ansaRssService.getTopNews(),
                 "Ansa Top News",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 ansaRssService.getPhoto(),
                 "Ansa Foto",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 ansaRssService.getVideo(),
                 "Ansa Video",
                 feedContainer.publisher["Ansa"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 miurRssService.getNews(),
                 "Miur News",
                 feedContainer.publisher["Miur"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 miurRssService.getComunication(),
                 "Miur Comunicati",
                 feedContainer.publisher["Miur"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 miurRssService.getNotification(),
                 "Miur Atti di notifica",
                 feedContainer.publisher["Miur"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 miurRssService.getNormativa(),
                 "Miur Normativa",
                 feedContainer.publisher["Miur"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getHome(),
                 "Repubblica Home",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getPolitica(),
                 "Repubblica Politica",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getEsteri(),
                 "Repubblica Esteri",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getEconomia(),
                 "Repubblica Normativa",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getCronaca(),
                 "Repubblica Cronaca",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getGallerie(),
                 "Repubblica Gallerie",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getAmbiente(),
                 "Repubblica Ambiente",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getSolidarieta(),
                 "Repubblica Solidarietà",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getPersone(),
                 "Repubblica Persone",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getSalute(),
                 "Repubblica Salute",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getScuola(),
                 "Repubblica Scuola",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getScienza(),
                 "Repubblica Scienza",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getTecnologia(),
                 "Repubblica Tecnologia",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getSport(),
                 "Repubblica Sport",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getCalcio(),
                 "Repubblica Calcio",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getSerieA(),
                 "Repubblica SerieA",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getSerieB(),
                 "Repubblica SerieB",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getFormulaUno(),
                 "Repubblica Formula Uno",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getMotoGp(),
                 "Repubblica Moto GP",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getTennis(),
                 "Repubblica Tennis",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getBasket(),
                 "Repubblica Basket",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getRugby(),
                 "Repubblica Rugby",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getCiclismo(),
                 "Repubblica Ciclismo",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getGolf(),
                 "Repubblica Golf",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getOtherSports(),
                 "Repubblica Altri sports",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getArte(),
                 "Repubblica Arte",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getCultura(),
                 "Repubblica Cultura",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getFuoriGiri(),
                 "Repubblica Fuori Giri",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getMonsignore(),
                 "Repubblica Monsignore",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getCruciverba(),
                 "Repubblica Cruciverba",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getGraffio(),
                 "Repubblica Graffio",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getLaParola(),
                 "Repubblica La Parola",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getLessicoENuvole(),
                 "Repubblica Lessico e Nuvole",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getLobby(),
                 "Repubblica Lobby",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getNaviInBottiglia(),
                 "Repubblica Navi in bottiglia",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getPotere(),
                 "Repubblica Potere",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getPuntoSvirgola(),
                 "Repubblica Punto e Svirgola",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getBussole(),
                 "Repubblica Bussole",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getSpyCalcio(),
                 "Repubblica Spy Calcio",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getPolis(),
                 "Repubblica Polis",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 repubblicaRssService.getDekoder(),
                 "Repubblica Dekoder",
                 feedContainer.publisher["Repubblica"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 tomsHwRssService.getHome(),
                 "TomsHW",
                 feedContainer.publisher["TomsHW"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 tomsHwRssService.getAutomotive(),
                 "TomsHW Automotive",
                 feedContainer.publisher["TomsHW"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 tomsHwRssService.getBusiness(),
                 "TomsHW Business",
                 feedContainer.publisher["TomsHW"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 tomsHwRssService.getDiscount(),
                 "TomsHW Discount",
                 feedContainer.publisher["TomsHW"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 tomsHwRssService.getGame(),
                 "TomsHW Game",
                 feedContainer.publisher["TomsHW"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 tomsHwRssService.getHardware(),
                 "TomsHW Hardware",
                 feedContainer.publisher["TomsHW"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 tomsHwRssService.getPopCulture(),
                 "TomsHW Pop Culture",
                 feedContainer.publisher["TomsHW"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 tomsHwRssService.getSmartphone(),
                 "TomsHW Smartphone",
                 feedContainer.publisher["TomsHW"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 tomsHwRssService.getScience(),
                 "TomsHW Science",
                 feedContainer.publisher["TomsHW"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 tomsHwRssService.getMore(),
                 "TomsHW More",
                 feedContainer.publisher["TomsHW"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.cronaca(),
                 "AGI Cronaca",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.economia(),
                 "AGI Economia",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.politica(),
                 "AGI Politica",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.estero(),
                 "AGI Estero",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.cultura(),
                 "AGI Cultura",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.sport(),
                 "AGI Sport",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.innovazione(),
                 "AGI Innovazione",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.lifestyle(),
                 "AGI Lifestyle",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.abruzzo(),
                 "AGI Abruzzo",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.calabria(),
                 "AGI Calabria",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.campania(),
                 "AGI Campania",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.emiliaRomagna(),
                 "AGI Emilia Romagna",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.friuliVeneziaGiulia(),
                 "AGI Friuli Venezia Giulia",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.lazio(),
                 "AGI Lazio",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.liguria(),
                 "AGI Liguria",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.lombardia(),
                 "AGI Lombardia",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.marche(),
                 "AGI Marche",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.molise(),
                 "AGI Molise",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.piemonte(),
                 "AGI Piemonte",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.puglia(),
                 "AGI Puglia",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.sardegna(),
                 "AGI Sardegna",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.sicilia(),
                 "AGI Sicilia",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.toscana(),
                 "AGI Toscana",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+        coroutine.async {
             elaborate(
                 agiRssService.umbria(),
                 "AGI Umbria",
                 feedContainer.publisher["AGI"]!!
             )
-        }
-        CoroutineScope(Dispatchers.IO).launch {
+        }.await()
+
+        coroutine.async {
             elaborate(
                 agiRssService.veneto(),
                 "AGI Veneto",
                 feedContainer.publisher["AGI"]!!
             )
-        }
+        }.await()
 
-        CoroutineScope(Dispatchers.IO).launch {
+        coroutine.async {
             elaborate(
                 fattoQuotidianoRssService.getHome(),
                 "Fatto Quotidiano",
                 feedContainer.publisher["FattoQuotidiano"]!!
             )
-        }
+        }.await()
+
+        switchToNext()
     }
 
+    /**
+     * Nel caso l'applicazione venga chiusa, termino tutte le coroutine
+     */
+    fun stopCoroutine() {
+        Log.e("PresentationViewModel", "Cancel all jobs")
+        coroutine.coroutineContext.cancelChildren()
+    }
+
+    /**
+     * Elabora la risposta e provvede a pooplare le relative mappe
+     */
     private fun elaborate(
         response: Response<Feed>,
         entity: String,
@@ -696,20 +713,12 @@ class PresentationViewModel @Inject constructor(
             Log.e("PresentationViewModel", "error parsing response")
             null
         }
-        counter++
 
         feed?.let {
             progress.postValue(progress.value?.plus(1) ?: 0)
             text.postValue(entity)
             if (it.channelTitle != null && it.articleList != null) {
                 map[it.channelTitle!!] = it.articleList!!
-            }
-        }
-
-        if (counter > 60) {
-            if (sempaphoreForSwitch) {
-                sempaphoreForSwitch = false
-                switchToNext()
             }
         }
     }

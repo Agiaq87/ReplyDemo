@@ -20,16 +20,17 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class PresentationFragment : Fragment() {
     private val viewModel: PresentationViewModel by viewModels()
-    private lateinit var binding: FragmentPresentationBinding
+    private val binding: FragmentPresentationBinding by lazy {
+        FragmentPresentationBinding.inflate(
+            layoutInflater
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPresentationBinding.inflate(layoutInflater)
-
-        //viewModel = ViewModelProvider(this).get(PresentationViewModel::class.java)
         binding.presentationViewModel = viewModel
         binding.lifecycleOwner = this
         viewModel.switchToNext = { goToNext() }
@@ -39,6 +40,12 @@ class PresentationFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+
+    override fun onDestroy() {
+        viewModel.stopCoroutine()
+        super.onDestroy()
     }
 
     private fun goToNext() =

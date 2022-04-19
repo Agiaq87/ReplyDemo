@@ -4,11 +4,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import it.giaquinto.fides.replydemo.R
+import it.giaquinto.fides.replydemo.ui.holder.BaseViewHolder
 
+class PublisherAdapter(
+    private val listener: (String) -> Unit
+) : BaseAdapter<PublisherAdapter.PublisherViewHolder, String>(
+    R.layout.item_list
+) {
+
+    inner class PublisherViewHolder(
+        view: View,
+        override var item: String?
+    ) : BaseViewHolder<String>(view) {
+        private val textView2: TextView by lazy { view.findViewById(R.id.textView2) }
+
+        override fun onBind(item: String) {
+            this.item = item
+            textView2.text = item.toString()
+        }
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PublisherViewHolder =
+        PublisherViewHolder(
+            LayoutInflater
+                .from(parent.context)
+                .inflate(layoutId, parent, false),
+            null
+        )
+}
+
+
+/*
 class PublisherAdapter : RecyclerView.Adapter<PublisherAdapter.PublisherViewHolder>() {
 
     lateinit var setListener: (String) -> Unit
@@ -42,4 +70,4 @@ class PublisherAdapter : RecyclerView.Adapter<PublisherAdapter.PublisherViewHold
     }
 
     override fun getItemCount(): Int = differ.currentList.size
-}
+}*/

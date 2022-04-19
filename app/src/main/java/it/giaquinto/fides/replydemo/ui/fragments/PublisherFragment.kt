@@ -26,18 +26,26 @@ import kotlinx.coroutines.launch
 class PublisherFragment : Fragment() {
 
     private val viewModel: PublisherViewModel by viewModels()
-    private lateinit var binding: FragmentPublisherBinding
-    private val publisherAdapter by lazy { PublisherAdapter() }
-
+    private val binding: FragmentPublisherBinding by lazy {
+        FragmentPublisherBinding.inflate(
+            layoutInflater
+        )
+    }
+    private val publisherAdapter by lazy {
+        PublisherAdapter {
+            findNavController().navigate(
+                R.id.action_publisherFragment_to_argumentsFragment,
+                bundleOf("publisher" to it)
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPublisherBinding.inflate(layoutInflater)
-
-        CoroutineScope(Dispatchers.Main).launch {
+        CoroutineScope(Dispatchers.Main.immediate).launch {
             setupRecyclerView()
         }
 
@@ -45,6 +53,11 @@ class PublisherFragment : Fragment() {
             viewModel.reOrderList()
         }
 
+
+        return binding.root
+    }
+
+    override fun onStart() {
         binding.searchText.addTextChangedListener(
             object : TextWatcher {
                 private var currentList: List<String>? = null
@@ -80,19 +93,18 @@ class PublisherFragment : Fragment() {
 
             }
         )
-
-        return binding.root
+        super.onStart()
     }
 
     private fun setupRecyclerView() = binding.recycleView.apply {
         adapter = publisherAdapter
         layoutManager = LinearLayoutManager(requireActivity())
-        publisherAdapter.setListener = {
+        /*publisherAdapter.setListener = {
             findNavController().navigate(
-                R.id.action_publisherFragment_to_newsFragment,
+                R.id.action_publisherFragment_to_argumentsFragment,
                 bundleOf("publisher" to it)
             )
-        }
+        }*/
 
         viewModel.publisherList.observe(
             viewLifecycleOwner

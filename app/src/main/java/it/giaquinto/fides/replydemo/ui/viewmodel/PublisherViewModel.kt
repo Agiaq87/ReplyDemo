@@ -15,7 +15,7 @@ class PublisherViewModel @Inject constructor(
     val publisherList = MutableLiveData<List<String>>()
 
     init {
-        publisherList.value = feedContainer.publisher.keys.toList().sortedDescending()
+        publisherList.value = feedContainer.publisher.keys.toList()
     }
 
     fun reOrderList() =

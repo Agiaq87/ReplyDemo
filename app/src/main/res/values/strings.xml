@@ -4,4 +4,5 @@
     <string name="publisher_menu">Publisher</string>
     <string name="news_menu">News</string>
     <string name="publisher_search">Cerca publisher</string>
+    <string name="app_settings">Impostazioni</string>
 </resources>

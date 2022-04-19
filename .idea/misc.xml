@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Progetti/Esempi/ReplyDemoGit/app/src/main/res/layout/activity_main.xml" value="0.34479166666666666" />
+        <entry key="..\:/Progetti/Esempi/ReplyDemoGit/app/src/main/res/menu/menu.xml" value="0.34479166666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.37552083333333336" />
         <entry key="app/src/main/res/layout/detail_list.xml" value="0.37552083333333336" />
         <entry key="app/src/main/res/layout/fragment_presentation.xml" value="0.37552083333333336" />
